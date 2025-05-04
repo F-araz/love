@@ -136,6 +136,21 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
+    .surprise-button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      color: #fff;
+      background-color: #8e24aa;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .surprise-button:hover {
+      background-color: #7b1fa2;
+    }
+
   </style>
 </head>
 <body>
@@ -176,6 +191,8 @@
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
+
+  <div class="surprise-button" onclick="showSurprise()">Surprise!</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -250,6 +267,10 @@
 
     function setVolume(value) {
       audio.volume = value;
+    }
+
+    function showSurprise() {
+      alert("Surprise! You're my everything 💖");
     }
 
     document.addEventListener('DOMContentLoaded', () => {
