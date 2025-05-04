@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To My Love 💖</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 1rem;
+    }
+
+    .love-message {
+      display: inline-block;
+      background: #ffc1e3;
+      color: #333;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .love-message:hover {
+      background: #ff99c8;
+      transform: scale(1.05);
+    }
+
+    #secretContent {
+      margin-top: 2rem;
+      background: #fff3f8;
+      padding: 1rem;
+      border-radius: 15px;
+      display: none;
+    }
+
+    input, button {
+      padding: 0.6rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #e91e63;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d81b60;
+    }
+
+    .music-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: 2px solid #e91e63;
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hi Kyla ❤️</h1>
+  <p>Click on a letter to reveal a sweet message uwu 🥰</p>
+
+  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
+  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
+  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
+
+  <hr style="margin: 3rem 0;">
+
+  <h2>Just for You</h2>
+  <input type="password" id="lovePassword" placeholder="Enter the magic word">
+  <button onclick="checkPassword()">Unlock</button>
+
+  <div id="secretContent">
+    <p>🎉 Surprise! Here's a little message from me:</p>
+    <p>I love you more than words can explain. You mean the world to me. 💗</p>
+  </div>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="your-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <button class="music-button" onclick="toggleMusic()">🎶</button>
+
+  <script>
+    const messages = [
+      "You make my world shine like nothing else ✨",
+      "I fall in love with you more every day 💕",
+      "You’re the best thing that’s ever happened to me ❤️"
+    ];
+
+    function revealMessage(elem) {
+      const random = messages[Math.floor(Math.random() * messages.length)];
+      elem.innerText = random;
+    }
+
+    function checkPassword() {
+      const pw = document.getElementById('lovePassword').value;
+      if (pw.toLowerCase() === "iloveyou") {
+        document.getElementById('secretContent').style.display = "block";
+      } else {
+        alert("Oops! Try again, sweetheart 💔");
+      }
+    }
+
+    const bgMusic = document.getElementById("bgMusic");
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+      }
+    }
+  </script>
+</body>
+</html>
