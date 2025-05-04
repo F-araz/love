@@ -33,6 +33,23 @@
       color: #ff4b6a; /* Romantic pinkish red */
       font-size: 3.5rem;
       margin: 1rem 0;
+      opacity: 0;
+      animation: continuousBounce 2s ease-in-out infinite; /* Continuous bounce effect */
+    }
+
+    @keyframes continuousBounce {
+      0% {
+        opacity: 0.8;
+        transform: translateY(-15px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 0.8;
+        transform: translateY(-15px);
+      }
     }
 
     p, h2 {
@@ -188,20 +205,21 @@
   <div class="magic-word-container">
     <h2>Just for You, My Love</h2>
     <p>Enter the magic word to unlock a special message for your heart 💖</p>
+    <p><em>Hint: It's the date we both hold close to our hearts. Our birthday. 🥰</em></p>
     <input type="password" id="lovePassword" placeholder="Enter the magic word">
     <button onclick="checkPassword()">Unlock</button>
   </div>
 
   <div id="secretContent">
     <p>
-  My Dearest Kyla, 💖<br>
-  I know distance can be so hard. The ache of not being able to hold your hand, hear your beautiful laugh, or feel your warmth when I need it most — it pulls at my heart every single day.<br>
-  But even though we're miles apart, not a moment goes by where I don't feel as if you're right here with me. You are always in my thoughts, in every song I hear, in every little thing that reminds me of you.<br>
-  I love you in a way that words could never truly capture. You are my heart, my soul, and my forever, no matter where life takes us.<br>
-  This love isn't just something for today or tomorrow; it's a love that will last for all time, through every moment, and beyond the distance.<br>
-  One day, when we're together again, we'll look back and smile at how strong our love has been — how we made it through all the challenges and came out even more in love.<br>
-  Until then, remember that no matter where we are, you are always in my heart, and I am always with you. I love you more than anything in this world. 💌
-</p>
+      My Dearest Kyla, 💖<br>
+      I know distance can be so hard. The ache of not being able to hold your hand, hear your beautiful laugh, or feel your warmth when I need it most — it pulls at my heart every single day.<br>
+      But even though we're miles apart, not a moment goes by where I don't feel as if you're right here with me. You are always in my thoughts, in every song I hear, in every little thing that reminds me of you.<br>
+      I love you in a way that words could never truly capture. You are my heart, my soul, and my forever, no matter where life takes us.<br>
+      This love isn't just something for today or tomorrow; it's a love that will last for all time, through every moment, and beyond the distance.<br>
+      One day, when we're together again, we'll look back and smile at how strong our love has been — how we made it through all the challenges and came out even more in love.<br>
+      Until then, remember that no matter where we are, you are always in my heart, and I am always with you. I love you more than anything in this world. 💌
+    </p>
   </div>
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
@@ -221,6 +239,24 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    // Adding two markers for Ranchi and Daet
+    var marker1 = L.marker([23.3441, 85.3096]).addTo(map); // Ranchi, India
+    marker1.bindPopup("<b>Faraz's location 💖</b>");
+
+    var marker2 = L.marker([12.9497, 122.9469]).addTo(map); // Daet, Philippines
+    marker2.bindPopup("<b>Kyla's location 💖</b>");
+
+    // Connecting Ranchi and Daet with a red line
+    var latlngs = [
+      [23.3441, 85.3096], // Ranchi, India
+      [12.9497, 122.9469] // Daet, Philippines
+    ];
+
+    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+    // Fit map to both markers
+    map.fitBounds(polyline.getBounds());
+
     function revealMessage(button) {
       let secretContent = document.getElementById("secretContent");
       secretContent.style.display = 'block';
@@ -229,7 +265,7 @@
 
     function checkPassword() {
       var password = document.getElementById("lovePassword").value;
-      if (password.toLowerCase() === "always") {
+      if (password === "15020909") {
         alert("You unlocked the magic! 💖");
         revealMessage(document.querySelector(".magic-word-container"));
       } else {
