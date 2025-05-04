@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>To My Love 💖</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -67,6 +68,13 @@
       border: 2px solid #e91e63;
       color: #e91e63;
     }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -85,8 +93,15 @@
   <button onclick="checkPassword()">Unlock</button>
 
   <div id="secretContent">
-    <p>🎉 Surprise! Here's a little message from me:</p>
-    <p>I love you more than words can explain. You mean the world to me. 💗</p>
+    <p>
+      I know distance can be tough, Kyla. Not being able to hold your hand, hear your laugh in person, or hug you when I need it most — it’s hard, I won’t lie.  
+      But even with all these miles between us, not a day goes by where I don’t feel close to you.  
+      You’re constantly on my mind — in the songs I hear, in the little moments, in everything.  
+      I love you more than words can describe. You’re my person, no matter where we are on the map.  
+      This isn’t just a “for now” thing — it’s a “forever” kind of love.  
+      One day, we’ll look back at this and we’ll be proud that we made it through them — together.  
+      Until then, just remember: I’m always with you, even if it’s not physically. My heart’s right there with you, every second. 💌
+    </p>
   </div>
 
   <audio id="bgMusic" autoplay loop>
@@ -96,21 +111,39 @@
 
   <button class="music-button" onclick="toggleMusic()">🎶</button>
 
+  <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const messages = [
       "You make my world shine like nothing else ✨",
       "I fall in love with you more every day 💕",
-      "You’re the best thing that’s ever happened to me ❤️",
+      "You’re the best thing that’s ever happened to me ❤️"
     ];
 
+    let usedIndexes = [];
+
     function revealMessage(elem) {
-      const random = messages[Math.floor(Math.random() * messages.length)];
-      elem.innerText = random;
+      if (elem.innerText !== "💌 Click Me") return; // Prevent re-clicks
+
+      if (usedIndexes.length >= messages.length) {
+        elem.innerText = "💖 I love you endlessly!";
+        return;
+      }
+
+      let index;
+      do {
+        index = Math.floor(Math.random() * messages.length);
+      } while (usedIndexes.includes(index));
+
+      usedIndexes.push(index);
+      elem.innerText = messages[index];
     }
 
     function checkPassword() {
       const pw = document.getElementById('lovePassword').value;
-      if (pw.toLowerCase() === "iloveyou") {
+      if (pw === "1520909") {
         document.getElementById('secretContent').style.display = "block";
       } else {
         alert("Oops! Try again, sweetheart 💔");
@@ -125,6 +158,32 @@
         bgMusic.pause();
       }
     }
+
+    
+    const yourCoords = [23.3441, 85.3096]; 
+    const herCoords = [13.5833, 122.9717]; 
+
+    const map = L.map('map').setView([(yourCoords[0] + herCoords[0]) / 2, (yourCoords[1] + herCoords[1]) / 2], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '❤️',
+    }).addTo(map);
+
+    
+    L.marker(yourCoords).addTo(map)
+      .bindPopup('Faraz 💖')
+      .openPopup();
+
+   
+    L.marker(herCoords).addTo(map)
+      .bindPopup('Kyla 💖');
+
+   
+    const heartLine = L.polyline([yourCoords, herCoords], {
+      color: '#e91e63',
+      weight: 4,
+      dashArray: '10,10',
+    }).addTo(map);
   </script>
 </body>
 </html>
