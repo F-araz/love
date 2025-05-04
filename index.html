@@ -104,35 +104,35 @@
       box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
 
-    .music-player {
-      position: fixed;
-      top: 20%;
-      left: 2%;
-      background: white;
-      padding: 1rem 1.5rem;
-      border-radius: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      z-index: 1000;
-      width: 250px;
-    }
-
-    .song-name {
+    .surprise-button,
+    .playlist-button {
+      position: relative;
+      margin-top: 1rem;
+      background-color: #ff4081;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
       font-weight: bold;
-      color: #e91e63;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
-    .volume-slider {
-      width: 100%;
+    .surprise-button:hover,
+    .playlist-button:hover {
+      background-color: #f50057;
+      box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
+    }
+
+    .surprise-button {
+      margin-right: 10px;
     }
 
     #map {
       height: 300px;
-      width: 90%;
-      max-width: 500px;
+      width: 80%;
+      max-width: 600px;
       border-radius: 20px;
       margin-top: 2rem;
       margin-bottom: 2rem;
@@ -164,50 +164,18 @@
       }
     }
 
-    .music-player-controls {
+    .content-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
       width: 100%;
+      margin-top: 2rem;
     }
 
-    .music-player button {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      margin: 0.2rem;
-      border-radius: 12px;
-      width: 45%;
-    }
-
-    .surprise-button {
-      position: relative;
-      margin-top: 1rem;
-      background-color: #ff4081;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .surprise-button:hover {
-      background-color: #f50057;
-      box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
-    }
   </style>
 </head>
 <body>
-  <div class="music-player">
-    <div class="song-name" id="currentSong">Life Goes On by Sundays</div>
-    <div class="music-player-controls">
-      <button onclick="togglePlayPause()">Play/Pause</button>
-      <button onclick="changeSong()">Next</button>
-    </div>
-    <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
-  </div>
-
   <h1>My Dearest Kyla ❤️</h1>
   <p>Click on the hearts below, and let them whisper sweet messages to you, as my love for you grows with every click. 🥰</p>
 
@@ -239,95 +207,38 @@
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
 
-  <button class="surprise-button" onclick="window.location.href='surprise.html';">Surprise!</button>
+  <div class="content-container">
+    <div class="surprise-button" onclick="revealMessage()">❤️ Click For A Surprise</div>
+    <div class="playlist-button" onclick="window.open('https://open.spotify.com/playlist/10SvteGIFvsp8bP0PK7X1v?si=a5196c9795fb4a21', '_blank')">🎶 Playlist</div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const messages = [
-      "You make my world shine like nothing else ✨",
-      "I fall in love with you more every day 💕",
-      "You’re the best thing that’s ever happened to me ❤️"
+    var kylaLocation = [14.099820332901, 122.95417684611867];
+    var farazLocation = [23.344, 85.300];
+    
+    var map = L.map('map');
+
+    var bounds = [
+      [14.099820332901, 122.95417684611867],  // Kyla's Location
+      [23.344, 85.300]                        // Faraz's Location
     ];
 
-    let usedIndexes = [];
+    map.fitBounds(bounds);  // Automatically adjust map view to fit both locations
 
-    function revealMessage(elem) {
-      if (elem.innerText === '💖 Click Me') {
-        let index;
-        do {
-          index = Math.floor(Math.random() * messages.length);
-        } while (usedIndexes.includes(index));
-
-        usedIndexes.push(index);
-        elem.innerText = messages[index];
-      } else {
-        elem.innerText = '💖 Click Me';
-      }
-    }
-
-    function checkPassword() {
-      const pw = document.getElementById('lovePassword').value;
-      if (pw === "1520909") {
-        document.getElementById('secretContent').style.display = "block";
-      } else {
-        alert("Oops! Try again, sweetheart 💔");
-      }
-    }
-
-    const myCoords = [23.344, 85.309];
-    const herCoords = [13.583, 122.965];
-
-    const map = L.map('map').setView(myCoords, 3);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker(myCoords).addTo(map).bindPopup("Faraz's Location ❤️").openPopup();
-    L.marker(herCoords).addTo(map).bindPopup("Kyla's Location 💖").openPopup();
+    L.marker(kylaLocation).addTo(map)
+      .bindPopup("Kyla's Location ❤️")
+      .openPopup();
 
-    const songs = [
-      'https://cdn.discordapp.com/attachments/1345426667266510991/1368538226322571285/Perfect.mp3', // Replace with actual GitHub URL
-      'https://cdn.discordapp.com/attachments/1345426667266510991/1368537887930449973/life.mp3', // Replace with actual GitHub URL
-      'https://cdn.discordapp.com/attachments/1345426667266510991/1368537842669715476/cry.mp3' // Replace with actual GitHub URL
-    ];
-    let currentSongIndex = 0;
-    let audio = new Audio(songs[currentSongIndex]);
-    let isPlaying = false;
+    L.marker(farazLocation).addTo(map)
+      .bindPopup("Faraz's Location 💖")
+      .openPopup();
 
-    function togglePlayPause() {
-      if (isPlaying) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      isPlaying = !isPlaying;
-    }
-
-    function changeSong() {
-      currentSongIndex = (currentSongIndex + 1) % songs.length;
-      audio.src = songs[currentSongIndex];
-      audio.play();
-      document.getElementById("currentSong").innerText = getSongName(currentSongIndex);
-      isPlaying = true;
-    }
-
-    function getSongName(index) {
-      const songNames = [
-        'Perfect by Ed Sherran',
-        'Life Goes On by Sundays',
-        'Cry by Sundays'
-      ];
-      return songNames[index];
-    }
-
-    function setVolume(value) {
-      audio.volume = value;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      audio.play();
-      isPlaying = true;
-    });
+    var redLine = L.polyline([kylaLocation, farazLocation], { color: 'red' }).addTo(map);
   </script>
 </body>
 </html>
