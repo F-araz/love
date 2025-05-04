@@ -4,238 +4,161 @@
   <meta charset="UTF-8">
   <title>To My Love 💖</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    /* Base Styling */
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #f9f9f9, #e6e6e6);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe0ec, #fce4ec);
       text-align: center;
       padding: 2rem;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       overflow: auto;
-      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1); /* subtle shadow */
+      color: #2e2e2e;
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Dark Mode Styling */
     body.dark-mode {
-      background: #121212;
+      background: #1e1e1e;
       color: #fff;
     }
 
     h1 {
+      font-family: 'Pacifico', cursive;
       color: #e91e63;
-      margin-bottom: 1rem;
-      font-size: 3rem;
-      font-weight: 600;
+      font-size: 3.5rem;
+      margin: 1rem 0;
     }
 
-    p {
-      color: #444;
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      line-height: 1.5;
+    p, h2 {
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    /* Love Messages Styling */
     .love-message {
-      display: inline-block;
-      background: rgba(255, 193, 227, 0.9);
-      color: #333;
+      background: #fff0f5;
+      color: #d81b60;
       padding: 1rem 2rem;
-      margin: 1rem;
-      border-radius: 20px;
+      border-radius: 30px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, background 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     .love-message:hover {
-      background: rgba(255, 153, 200, 0.9);
+      background: #ffc1e3;
       transform: scale(1.05);
     }
 
-    /* Buttons in a row */
     .button-container {
       display: flex;
-      justify-content: center;
+      flex-wrap: wrap;
       gap: 15px;
+      justify-content: center;
       margin: 2rem 0;
     }
 
-    .love-message {
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    /* Secret Content Box Styling */
     #secretContent {
+      background: #fff0f8;
+      padding: 2rem;
+      border-radius: 20px;
       margin-top: 2rem;
-      background: rgba(255, 243, 248, 0.9);
-      padding: 1rem;
-      border-radius: 15px;
+      max-width: 700px;
       display: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
-    /* Magic Word Section Styling */
     .magic-word-container {
-      background: rgba(255, 243, 248, 0.9);
+      background: #fff0f8;
       padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      margin-top: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       width: 80%;
       max-width: 500px;
     }
 
     input, button {
-      padding: 0.8rem;
+      padding: 1rem;
       margin: 0.5rem 0;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 1rem;
-      width: 100%;
     }
 
     button {
-      background: #e91e63;
+      background-color: #e91e63;
       color: white;
       cursor: pointer;
     }
 
     button:hover {
-      background: #d81b60;
-    }
-
-    /* Music Player Styling */
-    .music-player {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #fff;
-      padding: 0.8rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      width: 200px;
-      opacity: 0.95;
-      border: 1px solid #e6e6e6;
-    }
-
-    .music-player button {
-      margin: 5px;
-      background-color: #e91e63;
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-    }
-
-    .music-player button:hover {
       background-color: #d81b60;
     }
 
-    .volume-slider {
-      margin-top: 8px;
-      width: 80%;
+    .music-player {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
     }
 
     .song-name {
-      margin-bottom: 8px;
+      flex: 1;
       font-weight: bold;
       color: #e91e63;
-      font-size: 0.9rem;
     }
 
-    /* Minimized Media Player Styling */
-    .minimized-player {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #fff;
-      padding: 0.8rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      width: 100px;
-      opacity: 0.95;
-      z-index: 100;
-      text-align: center;
-    }
-
-    .minimized-player button {
+    .volume-slider {
       width: 80px;
-      padding: 8px;
     }
 
-    /* Map Styling */
     #map {
-      height: 200px;
-      width: 80%;
+      height: 250px;
+      width: 90%;
       max-width: 600px;
-      border-radius: 15px;
-      margin-top: 1rem;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      background: #f8f8f8;
-      margin-bottom: 2rem;
-      border: 2px solid #e6e6e6;
+      border-radius: 20px;
+      margin-top: 2rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* Scrollable content */
-    .content {
-      max-height: 500px;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-
-    /* Scrollbar Styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #e91e63;
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #d81b60;
+    #darkModeButton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #e91e63;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
+  <button id="darkModeButton" onclick="toggleDarkMode()">🌙</button>
 
-  <!-- Music Player -->
-
-  <div class="music-player" id="musicPlayer">
+  <div class="music-player">
     <div class="song-name" id="currentSong">Song 1</div>
     <button onclick="togglePlayPause()">Play/Pause</button>
-    <button onclick="changeSong()">Next Song</button>
+    <button onclick="changeSong()">Next</button>
     <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
-    <button onclick="minimizePlayer()">Minimize</button>
-  </div>
-
-  <!-- Minimized Media Player -->
-
-  <div class="minimized-player" id="minimizedPlayer" style="display: none;">
-    <button onclick="restorePlayer()">Restore</button>
   </div>
 
   <h1>My Dearest Kyla ❤️</h1>
@@ -247,8 +170,6 @@
     <div class="love-message" onclick="revealMessage(this)">💖 Click Me</div>
   </div>
 
-  <hr style="margin: 3rem 0;">
-
   <div class="magic-word-container">
     <h2>Just for You, My Love</h2>
     <p>Enter the magic word to unlock a special message for your heart 💖</p>
@@ -258,12 +179,12 @@
 
   <div id="secretContent">
     <p>
-      I know distance can be tough, Kyla. Not being able to hold your hand, hear your laugh in person, or hug you when I need it most — it’s hard, I won’t lie.  
-      But even with all these miles between us, not a day goes by where I don’t feel close to you.  
-      You’re constantly on my mind — in the songs I hear, in the little moments, in everything.  
-      I love you more than words can describe. You’re my person, no matter where we are on the map.  
-      This isn’t just a “for now” thing — it’s a “forever” kind of love.  
-      One day, we’ll look back at this and we’ll be proud that we made it through them — together.  
+      I know distance can be tough, Kyla. Not being able to hold your hand, hear your laugh in person, or hug you when I need it most — it’s hard, I won’t lie.<br>
+      But even with all these miles between us, not a day goes by where I don’t feel close to you.<br>
+      You’re constantly on my mind — in the songs I hear, in the little moments, in everything.<br>
+      I love you more than words can describe. You’re my person, no matter where we are on the map.<br>
+      This isn’t just a “for now” thing — it’s a “forever” kind of love.<br>
+      One day, we’ll look back at this and we’ll be proud that we made it through them — together.<br>
       Until then, just remember: I’m always with you, even if it’s not physically. My heart’s right there with you, every second. 💌
     </p>
   </div>
@@ -272,7 +193,6 @@
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script>
     const messages = [
       "You make my world shine like nothing else ✨",
@@ -283,13 +203,11 @@
     let usedIndexes = [];
 
     function revealMessage(elem) {
-      if (elem.innerText !== "💖 Click Me") return; // Prevent re-clicks
-
+      if (elem.innerText !== "💖 Click Me") return;
       if (usedIndexes.length >= messages.length) {
         elem.innerText = "💖 I love you endlessly!";
         return;
       }
-
       let index;
       do {
         index = Math.floor(Math.random() * messages.length);
@@ -308,48 +226,55 @@
       }
     }
 
-    // Map coordinates for Faraz and Kyla
-    const myCoords = [23.344, 85.309]; // Ranchi, India (Faraz)
-    const herCoords = [13.583, 122.965]; // Daet, Philippines (Kyla)
+    const myCoords = [23.344, 85.309];
+    const herCoords = [13.583, 122.965];
 
     const map = L.map('map').setView(myCoords, 3);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    L.marker(myCoords).addTo(map).bindPopup('Faraz 🧑‍💻').openPopup();
-    L.marker(herCoords).addTo(map).bindPopup('Kyla 💖').openPopup();
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    // Music Player Functions
+    L.marker(myCoords).addTo(map).bindPopup("Faraz's Location ❤️").openPopup();
+    L.marker(herCoords).addTo(map).bindPopup("Kyla's Location 💖").openPopup();
+
+    const songs = [
+      'https://example.com/song1.mp3',
+      'https://example.com/song2.mp3',
+      'https://example.com/song3.mp3'
+    ];
     let currentSongIndex = 0;
-    const songs = ["Song 1", "Song 2", "Song 3"];
-    const audioPlayer = new Audio();
+    let audio = new Audio(songs[currentSongIndex]);
+    let isPlaying = false;
 
     function togglePlayPause() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
+      if (isPlaying) {
+        audio.pause();
       } else {
-        audioPlayer.pause();
+        audio.play();
       }
+      isPlaying = !isPlaying;
     }
 
     function changeSong() {
       currentSongIndex = (currentSongIndex + 1) % songs.length;
-      document.getElementById("currentSong").innerText = songs[currentSongIndex];
-      audioPlayer.src = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${currentSongIndex + 1}.mp3`;
-      audioPlayer.play();
+      audio.src = songs[currentSongIndex];
+      audio.play();
+      document.getElementById("currentSong").innerText = `Song ${currentSongIndex + 1}`;
+      isPlaying = true;
     }
 
-    function setVolume(volume) {
-      audioPlayer.volume = volume;
+    function setVolume(value) {
+      audio.volume = value;
     }
 
-    function minimizePlayer() {
-      document.getElementById('musicPlayer').style.display = 'none';
-      document.getElementById('minimizedPlayer').style.display = 'block';
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
     }
 
-    function restorePlayer() {
-      document.getElementById('minimizedPlayer').style.display = 'none';
-      document.getElementById('musicPlayer').style.display = 'block';
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      audio.play();
+      isPlaying = true;
+    });
   </script>
 </body>
 </html>
