@@ -47,13 +47,14 @@
       border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     .love-message:hover {
       background: #ffc1e3;
       transform: scale(1.05);
+      box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
 
     .button-container {
@@ -95,10 +96,12 @@
       background-color: #e91e63;
       color: white;
       cursor: pointer;
+      transition: box-shadow 0.3s ease;
     }
 
     button:hover {
       background-color: #d81b60;
+      box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
 
     .music-player {
@@ -133,9 +136,9 @@
       border-radius: 20px;
       margin-top: 2rem;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem; /* Added margin to create space below the map */
     }
 
-    /* New styling for music player buttons */
     .music-player-controls {
       display: flex;
       justify-content: space-between;
@@ -148,6 +151,25 @@
       margin: 0.2rem;
       border-radius: 12px;
       width: 45%;
+    }
+
+    .surprise-button {
+      position: relative;
+      margin-top: 1rem;
+      background-color: #ff4081;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .surprise-button:hover {
+      background-color: #f50057;
+      box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
 
   </style>
@@ -192,6 +214,8 @@
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
+
+  <button class="surprise-button" onclick="window.location.href='surprise.html';">Surprise!</button>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
