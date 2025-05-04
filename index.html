@@ -135,8 +135,33 @@
       max-width: 500px;
       border-radius: 20px;
       margin-top: 2rem;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem; /* Added margin to create space below the map */
+      margin-bottom: 2rem;
+      box-shadow: 0 0 25px 5px rgba(255, 0, 100, 0.6); /* Glowing effect */
+      position: relative;
+      overflow: hidden;
+    }
+
+    #map::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: rgba(255, 0, 100, 0.3);
+      z-index: -1;
+      border-radius: 25px;
+      box-shadow: 0 0 40px 10px rgba(255, 0, 100, 0.6); /* Glowing beam */
+      animation: glowingBeam 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowingBeam {
+      0% {
+        box-shadow: 0 0 30px 5px rgba(255, 0, 100, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 60px 15px rgba(255, 0, 100, 0.8);
+      }
     }
 
     .music-player-controls {
@@ -171,12 +196,11 @@
       background-color: #f50057;
       box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
-
   </style>
 </head>
 <body>
   <div class="music-player">
-    <div class="song-name" id="currentSong">Song 1</div>
+    <div class="song-name" id="currentSong">Life Goes On by Sundays</div>
     <div class="music-player-controls">
       <button onclick="togglePlayPause()">Play/Pause</button>
       <button onclick="changeSong()">Next</button>
@@ -228,18 +252,17 @@
     let usedIndexes = [];
 
     function revealMessage(elem) {
-      if (elem.innerText !== "💖 Click Me") return;
-      if (usedIndexes.length >= messages.length) {
-        elem.innerText = "💖 I love you endlessly!";
-        return;
-      }
-      let index;
-      do {
-        index = Math.floor(Math.random() * messages.length);
-      } while (usedIndexes.includes(index));
+      if (elem.innerText === '💖 Click Me') {
+        let index;
+        do {
+          index = Math.floor(Math.random() * messages.length);
+        } while (usedIndexes.includes(index));
 
-      usedIndexes.push(index);
-      elem.innerText = messages[index];
+        usedIndexes.push(index);
+        elem.innerText = messages[index];
+      } else {
+        elem.innerText = '💖 Click Me';
+      }
     }
 
     function checkPassword() {
@@ -263,9 +286,9 @@
     L.marker(herCoords).addTo(map).bindPopup("Kyla's Location 💖").openPopup();
 
     const songs = [
-      'https://example.com/song1.mp3',
-      'https://example.com/song2.mp3',
-      'https://example.com/song3.mp3'
+      'https://raw.githubusercontent.com/F-araz/love/refs/heads/main/life.mp3', // Replace with actual GitHub URL
+      'https://raw.githubusercontent.com/F-araz/love/refs/heads/main/people.mp3', // Replace with actual GitHub URL
+      'https://raw.githubusercontent.com/F-araz/love/refs/heads/main/cry.mp3' // Replace with actual GitHub URL
     ];
     let currentSongIndex = 0;
     let audio = new Audio(songs[currentSongIndex]);
@@ -284,8 +307,17 @@
       currentSongIndex = (currentSongIndex + 1) % songs.length;
       audio.src = songs[currentSongIndex];
       audio.play();
-      document.getElementById("currentSong").innerText = `Song ${currentSongIndex + 1}`;
+      document.getElementById("currentSong").innerText = getSongName(currentSongIndex);
       isPlaying = true;
+    }
+
+    function getSongName(index) {
+      const songNames = [
+        'Life Goes On by Sundays',
+        'We Are the People by Empire of the Sun',
+        'Cry by Sundays'
+      ];
+      return songNames[index];
     }
 
     function setVolume(value) {
