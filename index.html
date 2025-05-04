@@ -103,52 +103,51 @@
 
     .music-player {
       position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 20%;
+      left: 2%;
       background: white;
       padding: 1rem 1.5rem;
       border-radius: 25px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 1rem;
       z-index: 1000;
-      width: 90%;
-      max-width: 400px;
+      width: 250px;
     }
 
     .song-name {
-      flex: 1;
       font-weight: bold;
       color: #e91e63;
     }
 
     .volume-slider {
-      width: 80px;
+      width: 100%;
     }
 
     #map {
-      height: 400px; /* Increased height for better visibility */
-      width: 100%; /* Ensure it takes full width */
+      height: 300px;
+      width: 90%;
+      max-width: 500px;
       border-radius: 20px;
       margin-top: 2rem;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .surprise-button {
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      color: #fff;
-      background-color: #8e24aa;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    /* New styling for music player buttons */
+    .music-player-controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
 
-    .surprise-button:hover {
-      background-color: #7b1fa2;
+    .music-player button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      margin: 0.2rem;
+      border-radius: 12px;
+      width: 45%;
     }
 
   </style>
@@ -156,8 +155,10 @@
 <body>
   <div class="music-player">
     <div class="song-name" id="currentSong">Song 1</div>
-    <button onclick="togglePlayPause()">Play/Pause</button>
-    <button onclick="changeSong()">Next</button>
+    <div class="music-player-controls">
+      <button onclick="togglePlayPause()">Play/Pause</button>
+      <button onclick="changeSong()">Next</button>
+    </div>
     <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
   </div>
 
@@ -191,8 +192,6 @@
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
-
-  <div class="surprise-button" onclick="showSurprise()">Surprise!</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -267,10 +266,6 @@
 
     function setVolume(value) {
       audio.volume = value;
-    }
-
-    function showSurprise() {
-      alert("Surprise! You're my everything 💖");
     }
 
     document.addEventListener('DOMContentLoaded', () => {
