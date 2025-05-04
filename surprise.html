@@ -27,6 +27,20 @@
       margin-bottom: 1rem;
     }
 
+    .timer-box {
+      background-color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e91e63;
+      margin-top: -3rem; /* To bring it closer to the top */
+      width: auto;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
     .message-box {
       font-size: 1.2rem;
       color: #333;
@@ -79,6 +93,9 @@
 </head>
 <body>
 
+  <!-- Timer Box at the top -->
+  <div class="timer-box" id="timer"></div>
+
   <h1>For You, Kyla ❤️</h1>
 
   <div class="message-box">
@@ -92,6 +109,27 @@
     <button class="button back-button" onclick="window.location.href='index.html';">Go Back</button>
     <button class="button" onclick="window.location.href='https://www.youtube.com/watch?v=veeUn-bE5qk';">I Love You Forever</button>
   </div>
+
+  <script>
+    // Set the date when you both started being together (25th September 2024)
+    var startDate = new Date("2024-09-25T00:00:00").getTime();
+
+    // Update the timer every second
+    var timer = setInterval(function() {
+      var now = new Date().getTime();
+      var distance = now - startDate;
+
+      // Time calculations for days, hours, minutes, and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result
+      document.getElementById("timer").innerHTML = 
+        "Time Since We Met: " + days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds";
+    }, 1000);
+  </script>
 
 </body>
 </html>
