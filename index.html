@@ -164,6 +164,17 @@
       margin-bottom: 2rem;
       border: 2px solid #e6e6e6;
     }
+
+    @media (max-width: 600px) {
+      .music-player {
+        width: 180px;
+      }
+
+      #map {
+        height: 180px;
+        width: 90%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -220,7 +231,7 @@
     let usedIndexes = [];
 
     function revealMessage(elem) {
-      if (elem.innerText !== "💖 Click Me") return; // Prevent re-clicks
+      if (elem.innerText !== "💖 Click Me") return;
 
       if (usedIndexes.length >= messages.length) {
         elem.innerText = "💖 I love you endlessly!";
@@ -270,8 +281,13 @@
 
     // Music player functionality
     const songs = [
-      'your-song1.mp3', 'your-song2.mp3', 'your-song3.mp3', 
-      'your-song4.mp3', 'your-song5.mp3', 'your-song6.mp3', 'your-song7.mp3'
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', 
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', 
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'
     ];
 
     let currentSongIndex = 0;
