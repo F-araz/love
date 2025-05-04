@@ -5,86 +5,76 @@
   <title>To My Love 💖</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
+    /* Apple-like Aesthetic */
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #fff0f5;
+      background: linear-gradient(135deg, #f0f0f5, #e0e0e5);
       text-align: center;
       padding: 2rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     h1 {
       color: #e91e63;
       margin-bottom: 1rem;
+      font-size: 3rem;
+      font-weight: 600;
     }
 
+    p {
+      color: #444;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Love Messages Styling */
     .love-message {
       display: inline-block;
-      background: #ffc1e3;
+      background: rgba(255, 193, 227, 0.9);
       color: #333;
       padding: 1rem 2rem;
       margin: 1rem;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
 
     .love-message:hover {
-      background: #ff99c8;
+      background: rgba(255, 153, 200, 0.9);
       transform: scale(1.05);
     }
 
+    /* Secret Content Box Styling */
     #secretContent {
       margin-top: 2rem;
-      background: #fff3f8;
+      background: rgba(255, 243, 248, 0.9);
       padding: 1rem;
       border-radius: 15px;
       display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    input, button {
-      padding: 0.6rem;
-      margin: 0.5rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    button {
-      background: #e91e63;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #d81b60;
-    }
-
-    #map {
-      height: 150px; /* Smaller map height */
-      width: 300px; /* Smaller map width */
-      border-radius: 15px;
-      margin-top: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      background: #f8f8f8;
-      margin-bottom: 2rem;
-      display: inline-block;
-    }
-
+    /* Music Player Styling */
     .music-player {
       position: fixed;
       top: 20px;
-      left: 20px; /* Positioned to the top-left corner */
+      left: 20px;
       background: #fff;
       padding: 1rem;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 100;
-      width: 220px; /* Adjust the width */
+      width: 220px;
+      opacity: 0.95;
     }
 
     .music-player button {
@@ -92,10 +82,11 @@
       background-color: #e91e63;
       border: none;
       color: white;
-      padding: 10px;
+      padding: 12px 20px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
+      transition: background-color 0.3s;
     }
 
     .music-player button:hover {
@@ -112,6 +103,18 @@
       font-weight: bold;
       color: #e91e63;
     }
+
+    /* Map Styling */
+    #map {
+      height: 150px;
+      width: 300px;
+      border-radius: 15px;
+      margin-top: 1rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      background: #f8f8f8;
+      margin-bottom: 2rem;
+    }
+
   </style>
 </head>
 <body>
