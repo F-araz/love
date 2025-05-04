@@ -152,6 +152,26 @@
       color: #e91e63;
     }
 
+    /* Minimized Media Player Styling */
+    .minimized-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      width: 100px;
+      opacity: 0.95;
+      z-index: 100;
+      text-align: center;
+    }
+
+    .minimized-player button {
+      width: 80px;
+      padding: 8px;
+    }
+
     /* Map Styling */
     #map {
       height: 200px;
@@ -164,27 +184,22 @@
       margin-bottom: 2rem;
       border: 2px solid #e6e6e6;
     }
-
-    @media (max-width: 600px) {
-      .music-player {
-        width: 180px;
-      }
-
-      #map {
-        height: 180px;
-        width: 90%;
-      }
-    }
   </style>
 </head>
 <body>
 
   <!-- Music Player -->
-  <div class="music-player">
+  <div class="music-player" id="musicPlayer">
     <div class="song-name" id="currentSong">Song 1</div>
     <button onclick="togglePlayPause()">Play/Pause</button>
     <button onclick="changeSong()">Next Song</button>
     <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
+    <button onclick="minimizePlayer()">Minimize</button>
+  </div>
+
+  <!-- Minimized Media Player -->
+  <div class="minimized-player" id="minimizedPlayer" style="display: none;">
+    <button onclick="restorePlayer()">Restore</button>
   </div>
 
   <h1>My Dearest Kyla ❤️</h1>
@@ -231,7 +246,7 @@
     let usedIndexes = [];
 
     function revealMessage(elem) {
-      if (elem.innerText !== "💖 Click Me") return;
+      if (elem.innerText !== "💖 Click Me") return; // Prevent re-clicks
 
       if (usedIndexes.length >= messages.length) {
         elem.innerText = "💖 I love you endlessly!";
@@ -257,59 +272,59 @@
     }
 
     // Map coordinates for Faraz and Kyla
-    const yourCoords = [23.3441, 85.3096]; 
-    const herCoords = [13.5833, 122.9717]; 
+    const myCoords = [23.344, 85.309]; // Ranchi, India (Faraz)
+    const herCoords = [13.583, 122.965]; // Daet, Philippines (Kyla)
 
-    const map = L.map('map').setView([(yourCoords[0] + herCoords[0]) / 2, (yourCoords[1] + herCoords[1]) / 2], 2);
-
+    const map = L.map('map').setView(myCoords, 3);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '❤️',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker(yourCoords).addTo(map)
-      .bindPopup('Faraz 💖')
-      .openPopup();
+    // Marker for Faraz
+    L.marker(myCoords).addTo(map).bindPopup("Faraz's Location ❤️").openPopup();
 
-    L.marker(herCoords).addTo(map)
-      .bindPopup('Kyla 💖');
+    // Marker for Kyla
+    L.marker(herCoords).addTo(map).bindPopup("Kyla's Location 💖").openPopup();
 
-    const heartLine = L.polyline([yourCoords, herCoords], {
-      color: '#e91e63',
-      weight: 4,
-      opacity: 0.7
-    }).addTo(map);
-
-    // Music player functionality
+    // Music Player
     const songs = [
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', 
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', 
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'
+      'https://link_to_your_song_1.mp3',
+      'https://link_to_your_song_2.mp3',
+      'https://link_to_your_song_3.mp3'
     ];
-
     let currentSongIndex = 0;
-    const audioElement = new Audio(songs[currentSongIndex]);
+    let audio = new Audio(songs[currentSongIndex]);
+    let isPlaying = false;
 
     function togglePlayPause() {
-      if (audioElement.paused) {
-        audioElement.play();
+      if (isPlaying) {
+        audio.pause();
       } else {
-        audioElement.pause();
+        audio.play();
       }
+      isPlaying = !isPlaying;
     }
 
     function changeSong() {
       currentSongIndex = (currentSongIndex + 1) % songs.length;
-      audioElement.src = songs[currentSongIndex];
-      audioElement.play();
-      document.getElementById('currentSong').innerText = `Song ${currentSongIndex + 1}`;
+      audio.pause();
+      audio = new Audio(songs[currentSongIndex]);
+      audio.play();
+      document.getElementById('currentSong').innerText = "Song " + (currentSongIndex + 1);
     }
 
-    function setVolume(volume) {
-      audioElement.volume = volume;
+    function setVolume(value) {
+      audio.volume = value;
+    }
+
+    function minimizePlayer() {
+      document.getElementById('musicPlayer').style.display = 'none';
+      document.getElementById('minimizedPlayer').style.display = 'block';
+    }
+
+    function restorePlayer() {
+      document.getElementById('musicPlayer').style.display = 'flex';
+      document.getElementById('minimizedPlayer').style.display = 'none';
     }
   </script>
 
