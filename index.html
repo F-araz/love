@@ -31,6 +31,7 @@
       color: #444;
       font-size: 1.2rem;
       margin-bottom: 2rem;
+      line-height: 1.5;
     }
 
     /* Love Messages Styling */
@@ -51,6 +52,20 @@
       transform: scale(1.05);
     }
 
+    /* Buttons in a row */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 2rem 0;
+    }
+
+    .love-message {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
     /* Secret Content Box Styling */
     #secretContent {
       margin-top: 2rem;
@@ -59,6 +74,36 @@
       border-radius: 15px;
       display: none;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Magic Word Section Styling */
+    .magic-word-container {
+      background: rgba(255, 243, 248, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      margin-top: 2rem;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    input, button {
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    button {
+      background: #e91e63;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d81b60;
     }
 
     /* Music Player Styling */
@@ -109,13 +154,15 @@
 
     /* Map Styling */
     #map {
-      height: 150px;
-      width: 300px;
+      height: 200px;
+      width: 80%;
+      max-width: 600px;
       border-radius: 15px;
       margin-top: 1rem;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
       background: #f8f8f8;
       margin-bottom: 2rem;
+      border: 2px solid #e6e6e6;
     }
   </style>
 </head>
@@ -129,18 +176,23 @@
     <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
   </div>
 
-  <h1>Hi Kyla ❤️</h1>
-  <p>Click on a letter to reveal a sweet message uwu 🥰</p>
+  <h1>My Dearest Kyla ❤️</h1>
+  <p>Click on the hearts below, and let them whisper sweet messages to you, as my love for you grows with every click. 🥰</p>
 
-  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
-  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
-  <div class="love-message" onclick="revealMessage(this)">💌 Click Me</div>
+  <div class="button-container">
+    <div class="love-message" onclick="revealMessage(this)">💖 Click Me</div>
+    <div class="love-message" onclick="revealMessage(this)">💖 Click Me</div>
+    <div class="love-message" onclick="revealMessage(this)">💖 Click Me</div>
+  </div>
 
   <hr style="margin: 3rem 0;">
 
-  <h2>Just for You</h2>
-  <input type="password" id="lovePassword" placeholder="Enter the magic word">
-  <button onclick="checkPassword()">Unlock</button>
+  <div class="magic-word-container">
+    <h2>Just for You, My Love</h2>
+    <p>Enter the magic word to unlock a special message for your heart 💖</p>
+    <input type="password" id="lovePassword" placeholder="Enter the magic word">
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
 
   <div id="secretContent">
     <p>
@@ -168,7 +220,7 @@
     let usedIndexes = [];
 
     function revealMessage(elem) {
-      if (elem.innerText !== "💌 Click Me") return; // Prevent re-clicks
+      if (elem.innerText !== "💖 Click Me") return; // Prevent re-clicks
 
       if (usedIndexes.length >= messages.length) {
         elem.innerText = "💖 I love you endlessly!";
@@ -193,45 +245,7 @@
       }
     }
 
-    // Music player code with 7 songs
-    const songs = [
-      { name: "Song 1", url: "your-song-1.mp3" },
-      { name: "Song 2", url: "your-song-2.mp3" },
-      { name: "Song 3", url: "your-song-3.mp3" },
-      { name: "Song 4", url: "your-song-4.mp3" },
-      { name: "Song 5", url: "your-song-5.mp3" },
-      { name: "Song 6", url: "your-song-6.mp3" },
-      { name: "Song 7", url: "your-song-7.mp3" }
-    ];
-
-    let currentSongIndex = 0;
-    const audioPlayer = new Audio(songs[currentSongIndex].url);
-    audioPlayer.loop = true; // Loop the songs
-
-    // Change song and play it automatically
-    function changeSong() {
-      currentSongIndex = (currentSongIndex + 1) % songs.length;
-      audioPlayer.src = songs[currentSongIndex].url;
-      audioPlayer.play();
-      document.getElementById("currentSong").innerText = songs[currentSongIndex].name;
-    }
-
-    function togglePlayPause() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-      } else {
-        audioPlayer.pause();
-      }
-    }
-
-    function setVolume(value) {
-      audioPlayer.volume = value;
-    }
-
-    // Initialize music player
-    audioPlayer.play();
-    document.getElementById("currentSong").innerText = songs[currentSongIndex].name;
-
+    // Map coordinates for Faraz and Kyla
     const yourCoords = [23.3441, 85.3096]; 
     const herCoords = [13.5833, 122.9717]; 
 
@@ -253,6 +267,35 @@
       weight: 4,
       opacity: 0.7
     }).addTo(map);
+
+    // Music player functionality
+    const songs = [
+      'your-song1.mp3', 'your-song2.mp3', 'your-song3.mp3', 
+      'your-song4.mp3', 'your-song5.mp3', 'your-song6.mp3', 'your-song7.mp3'
+    ];
+
+    let currentSongIndex = 0;
+    const audioElement = new Audio(songs[currentSongIndex]);
+
+    function togglePlayPause() {
+      if (audioElement.paused) {
+        audioElement.play();
+      } else {
+        audioElement.pause();
+      }
+    }
+
+    function changeSong() {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      audioElement.src = songs[currentSongIndex];
+      audioElement.play();
+      document.getElementById('currentSong').innerText = `Song ${currentSongIndex + 1}`;
+    }
+
+    function setVolume(volume) {
+      audioElement.volume = volume;
+    }
   </script>
+
 </body>
 </html>
