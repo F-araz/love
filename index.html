@@ -70,10 +70,13 @@
     }
 
     #map {
-      height: 400px;
-      width: 100%;
-      border-radius: 15px;
+      height: 250px; /* Reduced map height */
+      width: 80%; /* Slightly smaller width */
+      border-radius: 20px; /* Rounded corners for a cuter look */
       margin-top: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Added shadow to make it pop */
+      margin-bottom: 2rem;
+      background: #f8f8f8; /* Soft background */
     }
   </style>
 </head>
@@ -159,7 +162,6 @@
       }
     }
 
-    
     const yourCoords = [23.3441, 85.3096]; 
     const herCoords = [13.5833, 122.9717]; 
 
@@ -169,16 +171,13 @@
       attribution: '❤️',
     }).addTo(map);
 
-    
     L.marker(yourCoords).addTo(map)
       .bindPopup('Faraz 💖')
       .openPopup();
 
-   
     L.marker(herCoords).addTo(map)
       .bindPopup('Kyla 💖');
 
-   
     const heartLine = L.polyline([yourCoords, herCoords], {
       color: '#e91e63',
       weight: 4,
