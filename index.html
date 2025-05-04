@@ -5,7 +5,7 @@
   <title>To My Love 💖</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    /* Apple-inspired background with glossy finish */
+    /* Base Styling */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #f9f9f9, #e6e6e6);
@@ -16,8 +16,15 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow: auto;
       box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1); /* subtle shadow */
+      transition: background 0.3s ease;
+    }
+
+    /* Dark Mode Styling */
+    body.dark-mode {
+      background: #121212;
+      color: #fff;
     }
 
     h1 {
@@ -184,9 +191,23 @@
       margin-bottom: 2rem;
       border: 2px solid #e6e6e6;
     }
+
+    /* Scrollable content */
+    .content {
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Dark Mode Switch -->
+  <label for="darkModeSwitch" style="position: fixed; top: 10px; right: 10px; font-size: 1.2rem; cursor: pointer;">
+    🌙
+    <input type="checkbox" id="darkModeSwitch" onclick="toggleDarkMode()" style="display: none;">
+    <span id="darkModeLabel">Dark Mode</span>
+  </label>
 
   <!-- Music Player -->
   <div class="music-player" id="musicPlayer">
@@ -325,6 +346,12 @@
     function restorePlayer() {
       document.getElementById('musicPlayer').style.display = 'flex';
       document.getElementById('minimizedPlayer').style.display = 'none';
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      const darkModeLabel = document.getElementById("darkModeLabel");
+      darkModeLabel.innerText = document.body.classList.contains("dark-mode") ? "Light Mode" : "Dark Mode";
     }
   </script>
 
