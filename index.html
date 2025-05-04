@@ -60,27 +60,46 @@
       background: #d81b60;
     }
 
-    .music-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #fff;
-      border: 2px solid #e91e63;
-      color: #e91e63;
+    #map {
+      height: 150px; /* Smaller map height */
+      width: 300px; /* Smaller map width */
+      border-radius: 15px;
+      margin-top: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      background: #f8f8f8;
+      margin-bottom: 2rem;
+      display: inline-block;
     }
 
-    #map {
-      height: 250px; /* Reduced map height */
-      width: 80%; /* Slightly smaller width */
-      border-radius: 20px; /* Rounded corners for a cuter look */
-      margin-top: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Added shadow to make it pop */
-      margin-bottom: 2rem;
-      background: #f8f8f8; /* Soft background */
+    .music-player {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
     }
+
+    .music-player button {
+      margin: 0 10px;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Music Player -->
+  <div class="music-player">
+    <button onclick="togglePlayPause()">Play/Pause</button>
+    <button onclick="changeSong()">Next Song</button>
+    <span id="currentSong">Song 1</span>
+  </div>
 
   <h1>Hi Kyla ❤️</h1>
   <p>Click on a letter to reveal a sweet message uwu 🥰</p>
@@ -106,13 +125,6 @@
       Until then, just remember: I’m always with you, even if it’s not physically. My heart’s right there with you, every second. 💌
     </p>
   </div>
-
-  <audio id="bgMusic" autoplay loop>
-    <source src="your-song.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
-  </audio>
-
-  <button class="music-button" onclick="toggleMusic()">🎶</button>
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
@@ -154,7 +166,7 @@
     }
 
     const bgMusic = document.getElementById("bgMusic");
-    function toggleMusic() {
+    function togglePlayPause() {
       if (bgMusic.paused) {
         bgMusic.play();
       } else {
@@ -183,6 +195,29 @@
       weight: 4,
       dashArray: '10,10',
     }).addTo(map);
+
+    // Music player code
+    const songs = [
+      { name: "Song 1", url: "your-song-1.mp3" },
+      { name: "Song 2", url: "your-song-2.mp3" },
+      { name: "Song 3", url: "your-song-3.mp3" }
+    ];
+
+    let currentSongIndex = 0;
+
+    function changeSong() {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      const song = songs[currentSongIndex];
+      bgMusic.src = song.url;
+      bgMusic.play();
+      document.getElementById("currentSong").innerText = song.name;
+    }
+
   </script>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="your-song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
 </body>
 </html>
