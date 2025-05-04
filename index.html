@@ -21,12 +21,6 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Dark Mode Styling */
-    body.dark-mode {
-      background: #121212;
-      color: #fff;
-    }
-
     h1 {
       color: #e91e63;
       margin-bottom: 1rem;
@@ -41,13 +35,85 @@
       line-height: 1.5;
     }
 
+    /* Love Messages Styling */
+    .love-message {
+      display: inline-block;
+      background: rgba(255, 193, 227, 0.9);
+      color: #333;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .love-message:hover {
+      background: rgba(255, 153, 200, 0.9);
+      transform: scale(1.05);
+    }
+
+    /* Buttons in a row */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 2rem 0;
+    }
+
+    .love-message {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Secret Content Box Styling */
+    #secretContent {
+      margin-top: 2rem;
+      background: rgba(255, 243, 248, 0.9);
+      padding: 1rem;
+      border-radius: 15px;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Magic Word Section Styling */
+    .magic-word-container {
+      background: rgba(255, 243, 248, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      margin-top: 2rem;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    input, button {
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    button {
+      background: #e91e63;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d81b60;
+    }
+
     /* Music Player Styling */
     .music-player {
       position: fixed;
       top: 20px;
       left: 20px;
       background: #fff;
-      padding: 1rem;
+      padding: 0.8rem;
       border-radius: 12px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
       display: flex;
@@ -55,10 +121,9 @@
       justify-content: center;
       align-items: center;
       z-index: 100;
-      width: 250px;  /* Smaller music player size */
+      width: 200px;
       opacity: 0.95;
       border: 1px solid #e6e6e6;
-      transition: all 0.3s ease;
     }
 
     .music-player button {
@@ -98,36 +163,15 @@
       padding: 0.8rem;
       border-radius: 12px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      width: 120px;
+      width: 100px;
       opacity: 0.95;
       z-index: 100;
       text-align: center;
-      display: none;
     }
 
     .minimized-player button {
-      width: 100%;
+      width: 80px;
       padding: 8px;
-    }
-
-    /* Dark Mode Button Styling */
-    #darkModeButton {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background-color: #e91e63;
-      border: none;
-      color: white;
-      padding: 8px 10px;  /* Adjusted to be smaller */
-      border-radius: 50%;
-      font-size: 1.2rem;  /* Smaller font size */
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease;
-    }
-
-    #darkModeButton:hover {
-      background-color: #d81b60;
     }
 
     /* Map Styling */
@@ -168,13 +212,9 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #d81b60;
     }
-
   </style>
 </head>
 <body>
-
-  <!-- Dark Mode Switch Button -->
-  <button id="darkModeButton" onclick="toggleDarkMode()">🌙</button>
 
   <!-- Music Player -->
   <div class="music-player" id="musicPlayer">
@@ -311,11 +351,6 @@
     function restorePlayer() {
       document.getElementById('musicPlayer').style.display = 'block';
       document.getElementById('minimizedPlayer').style.display = 'none';
-    }
-
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
