@@ -21,6 +21,12 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
+    /* Dark Mode Styling */
+    body.dark-mode {
+      background: #121212;
+      color: #fff;
+    }
+
     h1 {
       color: #e91e63;
       margin-bottom: 1rem;
@@ -212,9 +218,32 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #d81b60;
     }
+
+    /* Dark Mode Button Styling */
+    #darkModeButton {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    #darkModeButton:hover {
+      background-color: #d81b60;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Dark Mode Switch Button -->
+  <button id="darkModeButton" onclick="toggleDarkMode()">🌙</button>
 
   <!-- Music Player -->
   <div class="music-player" id="musicPlayer">
@@ -351,6 +380,11 @@
     function restorePlayer() {
       document.getElementById('musicPlayer').style.display = 'block';
       document.getElementById('minimizedPlayer').style.display = 'none';
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
