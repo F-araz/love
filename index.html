@@ -10,7 +10,7 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffe0ec, #fce4ec);
+      background: linear-gradient(135deg, #f8c9d4, #fbd1c8); /* Soft pink gradient */
       text-align: center;
       padding: 2rem;
       min-height: 100vh;
@@ -19,18 +19,18 @@
       justify-content: flex-start;
       align-items: center;
       overflow: auto;
-      color: #2e2e2e;
+      color: #3b3b3b; /* Darker text for contrast */
       transition: background 0.3s ease, color 0.3s ease;
     }
 
     body.dark-mode {
-      background: #1e1e1e;
+      background: #2a2a2a;
       color: #fff;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
-      color: #e91e63;
+      color: #ff4b6a; /* Romantic pinkish red */
       font-size: 3.5rem;
       margin: 1rem 0;
     }
@@ -41,18 +41,18 @@
     }
 
     .love-message {
-      background: #fff0f5;
-      color: #d81b60;
+      background: #ffebf0; /* Soft blush pink */
+      color: #e91e63; /* Bold romantic pink */
       padding: 1rem 2rem;
       border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .love-message:hover {
-      background: #ffc1e3;
+      background: #f9c1d8; /* Lighter pink on hover */
       transform: scale(1.05);
       box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
@@ -66,20 +66,20 @@
     }
 
     #secretContent {
-      background: #fff0f8;
+      background: #fff0f8; /* Soft lavender pink */
       padding: 2rem;
       border-radius: 20px;
       margin-top: 2rem;
       max-width: 700px;
       display: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .magic-word-container {
       background: #fff0f8;
       padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       width: 80%;
       max-width: 500px;
     }
@@ -93,14 +93,14 @@
     }
 
     button {
-      background-color: #e91e63;
+      background-color: #ff4b6a; /* Romantic red-pink */
       color: white;
       cursor: pointer;
       transition: box-shadow 0.3s ease;
     }
 
     button:hover {
-      background-color: #d81b60;
+      background-color: #f50057;
       box-shadow: 0 0 15px 5px rgba(255, 0, 100, 0.6);
     }
 
@@ -108,7 +108,7 @@
     .playlist-button {
       position: relative;
       margin-top: 1rem;
-      background-color: #ff4081;
+      background-color: #ff80ab; /* Soft pink */
       color: white;
       padding: 1rem 2rem;
       border-radius: 30px;
@@ -116,7 +116,7 @@
       font-size: 1.2rem;
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .surprise-button:hover,
@@ -203,7 +203,6 @@
   Until then, remember that no matter where we are, you are always in my heart, and I am always with you. I love you more than anything in this world. 💌
 </p>
   </div>
-  </div>
 
   <h2 style="margin-top: 3rem;">Us, Across the World 🌍</h2>
   <div id="map"></div>
@@ -215,31 +214,28 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    var kylaLocation = [14.099820332901, 122.95417684611867];
-    var farazLocation = [23.344, 85.300];
-    
-    var map = L.map('map');
-
-    var bounds = [
-      [14.099820332901, 122.95417684611867],  // Kyla's Location
-      [23.344, 85.300]                        // Faraz's Location
-    ];
-
-    map.fitBounds(bounds);  // Automatically adjust map view to fit both locations
+    // Google Map setup
+    var map = L.map('map').setView([12.9497, 122.9469], 5); // Coordinates of Daet, Philippines
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker(kylaLocation).addTo(map)
-      .bindPopup("Kyla's Location ❤️")
-      .openPopup();
+    function revealMessage(button) {
+      let secretContent = document.getElementById("secretContent");
+      secretContent.style.display = 'block';
+      button.style.display = 'none'; // Hide the love message
+    }
 
-    L.marker(farazLocation).addTo(map)
-      .bindPopup("Faraz's Location 💖")
-      .openPopup();
-
-    var redLine = L.polyline([kylaLocation, farazLocation], { color: 'red' }).addTo(map);
+    function checkPassword() {
+      var password = document.getElementById("lovePassword").value;
+      if (password.toLowerCase() === "always") {
+        alert("You unlocked the magic! 💖");
+        revealMessage(document.querySelector(".magic-word-container"));
+      } else {
+        alert("Try again, my love. 💖");
+      }
+    }
   </script>
 </body>
 </html>
